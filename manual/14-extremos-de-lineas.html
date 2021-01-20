@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <title>Canvas caminos arco extremo redondeado</title>
+    <script>
+        //Recibe un identificador del elemento canvas y carga el canvas
+        //Devueve el contexto del canvas o FALSE si no ha podido conseguise
+        function cargaContextoCanvas(idCanvas) {
+            var elemento = document.getElementById(idCanvas);
+            if (elemento && elemento.getContext) {
+                var contexto = elemento.getContext('2d');
+                if (contexto) {
+                    return contexto;
+                }
+            }
+            return FALSE;
+        }
+
+        window.onload = function () {
+            var ctx = cargaContextoCanvas('micanvas2');
+            if (ctx) {
+                //líneas verticales rojas
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = '#900';
+                ctx.beginPath();
+                ctx.moveTo(20, 20);
+                ctx.lineTo(20, 180);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(480, 20);
+                ctx.lineTo(480, 180);
+                ctx.stroke();
+
+                //líneas horizontales verdes con diferentes configuraciones de extremos
+                ctx.beginPath();
+                ctx.lineWidth = 22;
+                ctx.lineCap = "butt";
+                ctx.strokeStyle = '#090';
+                ctx.moveTo(20, 60);
+                ctx.lineTo(480, 60);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineCap = "round";
+                ctx.moveTo(20, 100);
+                ctx.lineTo(480, 100);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineCap = "square";
+                ctx.moveTo(20, 140);
+                ctx.lineTo(480, 140);
+                ctx.stroke();
+            }
+
+            //Recibimos el elemento canvas
+            var ctx = cargaContextoCanvas('micanvas3');
+            if (ctx) {
+
+                //Camino para la sonrisa
+                ctx.beginPath();
+                ctx.lineWidth = 20;
+                ctx.lineCap = "round";
+                ctx.strokeStyle = '#009';
+                ctx.arc(75, 75, 60, Math.PI, 0, true);
+                ctx.stroke();
+
+                //ojo izquierdo
+                ctx.beginPath();
+                ctx.lineWidth = 10;
+                ctx.arc(35, 25, 10, 0, Math.PI, true);
+                ctx.stroke();
+
+                //ojo derecho
+                ctx.beginPath();
+                ctx.arc(110, 25, 10, 0, Math.PI, true);
+                ctx.stroke();
+
+                //círculo relleno para la nariz
+                ctx.beginPath();
+                ctx.arc(73, 50, 10, 0, Math.PI * 2, true);
+                ctx.fillStyle = '#009';
+                ctx.fill();
+
+            }
+
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+<h1>extremos de lineas</h1>
+    <canvas id="micanvas2" width="150" height="150">
+        Recicla tu navegador!!
+    </canvas>
+    <br> <br>   <br> <br>
+    <canvas id="micanvas3" width="150" height="150">
+        Recicla tu navegador!!
+    </canvas>
+ 
+</body>
+
+</html>
