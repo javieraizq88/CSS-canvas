@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <title>Canvas Caminos con stroke</title>
+    <script>
+        //Recibe un identificador del elemento canvas y carga el canvas
+        //Devueve el contexto del canvas o FALSE si no ha podido conseguise
+        function cargaContextoCanvas(idCanvas) {
+            var elemento = document.getElementById(idCanvas);
+            if (elemento && elemento.getContext) {
+                var contexto = elemento.getContext('2d');
+                if (contexto) {
+                    return contexto;
+                }
+            }
+            return false;
+        }
+
+        window.onload = function () {
+            // curvas cuadraticas
+            var ctx = cargaContextoCanvas('micanvas');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.moveTo(10, 60)
+                ctx.quadraticCurveTo(10, 10, 60, 10);
+                ctx.lineTo(120, 10);
+                ctx.lineTo(120, 50);
+                ctx.quadraticCurveTo(120, 110, 60, 110);
+                ctx.lineTo(10, 110);
+                ctx.fill();
+            }
+            // curvas bezier
+            var ctx = cargaContextoCanvas('micanvas1');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.fillStyle = "#ccccff";
+                ctx.moveTo(0, 40);
+                ctx.bezierCurveTo(75, 17, 70, 25, 100, 60);
+                ctx.bezierCurveTo(130, 35, 140, 45, 145, 50);
+                ctx.bezierCurveTo(180, 45, 190, 55, 200, 70);
+                ctx.lineTo(200, 150);
+                ctx.lineTo(0, 150);
+                ctx.fill();
+            }
+            var ctx = cargaContextoCanvas('micanvas2');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.fillStyle = 'rgba(100,230,100,0.3)';
+                ctx.moveTo(0, 90);
+                ctx.bezierCurveTo(90, 7, 110, 15, 140, 30);
+                ctx.bezierCurveTo(130, 55, 140, 65, 145, 70);
+                ctx.bezierCurveTo(180, 45, 190, 55, 200, 95);
+                ctx.lineTo(200, 150);
+                ctx.lineTo(0, 150);
+                ctx.fill();
+            }
+            var ctx = cargaContextoCanvas('micanvas3');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.fillStyle = 'blue';
+                ctx.moveTo(50, 150);
+                ctx.bezierCurveTo(90, 7, 110, 15, 160, 10);
+                ctx.bezierCurveTo(130, 105, 140, 135, 200, 35);
+                ctx.lineTo(200, 150);
+                ctx.lineTo(0, 150);
+                ctx.fill();
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <h2>curvas cuadraticas</h2>
+    <canvas id="micanvas" width="150" height="150">
+    </canvas>
+    <br>
+    <br>
+    <h2>
+        curvas Bezier
+    </h2>
+
+    <canvas id="micanvas1" width="150" height="150">
+    </canvas>
+    <br>
+    <br>
+
+    <canvas id="micanvas2" width="150" height="150">
+    </canvas>
+    <br>
+    <br>
+
+    <canvas id="micanvas3" width="150" height="150">
+    </canvas>
+</body>
+
+</html>

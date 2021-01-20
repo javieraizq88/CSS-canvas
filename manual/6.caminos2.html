@@ -1,0 +1,209 @@
+<html>
+
+<head>
+    <title>Canvas Caminos con stroke</title>
+    <script>
+        //Recibe un identificador del elemento canvas y carga el canvas
+        //Devueve el contexto del canvas o FALSE si no ha podido conseguise
+        function cargaContextoCanvas(idCanvas) {
+            var elemento = document.getElementById(idCanvas);
+            if (elemento && elemento.getContext) {
+                var contexto = elemento.getContext('2d');
+                if (contexto) {
+                    return contexto;
+                }
+            }
+            return false;
+        }
+
+        window.onload = function () {
+            //Recibimos el elemento canvas
+            var ctx = cargaContextoCanvas('micanvas');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.moveTo(1, 1);
+                for (i = 1; i < 100; i += 5) {
+                    if ((i % 2) != 0) {
+                        ctx.lineTo(i + 5, i);
+                    } else {
+                        ctx.lineTo(i, i + 5);
+                    }
+                }
+                ctx.lineTo(1, i);
+                ctx.closePath();
+                ctx.stroke();
+            }
+
+            //otro ejemplo basado en el mismo código
+            var ctx = cargaContextoCanvas('micanvas2');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.moveTo(1, 1);
+                for (i = 1; i < 100; i += 5) {
+                    if ((i % 2) != 0) {
+                        ctx.lineTo(i + 5, i);
+                    } else {
+                        ctx.moveTo(i, i + 5);
+                    }
+                }
+                ctx.stroke();
+            }
+
+            //Hexagono relleno de color, cierre de camino automático con fill
+            var ctx = cargaContextoCanvas('canvas1');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.moveTo(50, 15);
+                ctx.lineTo(112, 15);
+                ctx.lineTo(143, 69);
+                ctx.lineTo(112, 123);
+                ctx.lineTo(50, 123);
+                ctx.lineTo(19, 69);
+                ctx.fill();
+            }
+            //Hexagono rellenado, cierre de camino explícito con closePath
+            var ctx = cargaContextoCanvas('canvas2');
+            if (ctx) {
+                ctx.fillStyle = '#990000';
+                ctx.beginPath();
+                ctx.moveTo(50, 15);
+                ctx.lineTo(112, 15);
+                ctx.lineTo(143, 69);
+                ctx.lineTo(112, 123);
+                ctx.lineTo(50, 123);
+                ctx.lineTo(19, 69);
+                ctx.closePath();
+                ctx.fill();
+            }
+            //Hexagono sólo línea, sin cierre de camino
+            var ctx = cargaContextoCanvas('canvas3');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.moveTo(50, 15);
+                ctx.lineTo(112, 15);
+                ctx.lineTo(143, 69);
+                ctx.lineTo(112, 123);
+                ctx.lineTo(50, 123);
+                ctx.lineTo(19, 69);
+                ctx.stroke();
+            }
+            //Hexagono sólo línea, con cierre de camino closePath()
+            var ctx = cargaContextoCanvas('canvas4');
+            if (ctx) {
+                ctx.strokeStyle = '#990000';
+                ctx.beginPath();
+                ctx.moveTo(50, 15);
+                ctx.lineTo(112, 15);
+                ctx.lineTo(143, 69);
+                ctx.lineTo(112, 123);
+                ctx.lineTo(50, 123);
+                ctx.lineTo(19, 69);
+                ctx.closePath();
+                ctx.stroke();
+            }
+
+            // pintar dos caminos distintos
+            var ctx = cargaContextoCanvas('canvas5');
+            if (ctx) {
+                //primer camino
+                ctx.beginPath();
+                ctx.moveTo(20, 10);
+                ctx.lineTo(32, 20);
+                ctx.lineTo(22, 20);
+                ctx.lineTo(22, 35);
+                ctx.lineTo(17, 35);
+                ctx.lineTo(17, 20);
+                ctx.lineTo(7, 20);
+                //ctx.closePath(); opcional antes de un fill()
+                ctx.fill();
+
+                //creo un segundo camino
+                ctx.beginPath(); //probar a comentar esta línea para ver lo que pasa
+                ctx.fillStyle = '#ff8800';
+                ctx.moveTo(47, 50);
+                ctx.lineTo(67, 70);
+                ctx.lineTo(67, 30);
+                ctx.closePath();
+                ctx.fill();
+            }
+            // un camino que pinta en dos lugares distintos
+            var ctx = cargaContextoCanvas('canvas6');
+            if (ctx) {
+                ctx.beginPath();
+                ctx.moveTo(20, 7);
+                ctx.lineTo(32, 20);
+                ctx.lineTo(22, 20);
+                ctx.lineTo(22, 35);
+                ctx.lineTo(17, 35);
+                ctx.lineTo(17, 20);
+                ctx.lineTo(7, 20);
+                ctx.closePath();
+
+                //cambio el color de la línea, el color cambia para todo el trazo
+                ctx.strokeStyle = '#ff8800';
+
+                //sigo en el mismo camino, pero muevo el puntero de dibujo
+                ctx.moveTo(47, 50);
+                ctx.lineTo(67, 70);
+                ctx.lineTo(67, 30);
+                ctx.closePath();
+                ctx.stroke();
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <canvas id="micanvas" width="150" height="150">
+        Recicla tu browser, POR FAVOR!!
+    </canvas>
+
+    <br>
+    <br>
+
+    <canvas id="micanvas2" width="150" height="150">
+        POR FAVOR, Recicla tu navegador!!
+    </canvas>
+    <br>
+    <br>
+    <h2>Hexagono relleno de color, cierre de camino automático con fill</h2>
+    <canvas id="canvas1" width="150" height="150">
+    </canvas>
+
+    <br>
+    <br>
+
+    <h2>Hexagono rellenado, cierre de camino explícito con closePath</h2>
+    <canvas id="canvas2" width="150" height="150">
+    </canvas>
+    <br>
+    <br>
+
+    <h2>Hexagono sólo línea, sin cierre de camino</h2>
+    <canvas id="canvas3" width="150" height="150">
+    </canvas>
+    <br>
+    <br>
+
+    <h2>Hexagono sólo línea, con cierre de camino closePath()</h2>
+    <canvas id="canvas4" width="150" height="150">
+    </canvas>
+    <br>
+    <br>
+
+    <h2>pintar dos caminos distintos</h2>
+    <canvas id="canvas5" width="150" height="150">
+    </canvas>
+    <br>
+    <br>
+
+    <h2>un camino que pinta en dos lugares distintos</h2>
+    <canvas id="canvas6" width="150" height="150">
+    </canvas>
+    <br>
+    <br>
+</body>
+
+</html>

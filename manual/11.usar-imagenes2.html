@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>Imágenes en Canvas</title>
+    <script language="javascript">
+        function cargaContextoCanvas(idCanvas) {
+            var elemento = document.getElementById(idCanvas);
+            if (elemento && elemento.getContext) {
+                var contexto = elemento.getContext('2d');
+                if (contexto) {
+                    return contexto;
+                }
+            }
+            return false;
+        }
+
+
+        window.onload = function () {
+
+            //cargo un camino en un canvas, para luego traerlo como imagen
+            var ctx = cargaContextoCanvas('canvas2');
+            if (ctx) {
+                ctx.fillStyle = '#990000';
+                ctx.beginPath();
+                ctx.moveTo(50, 15);
+                ctx.lineTo(112, 15);
+                ctx.lineTo(143, 69);
+                ctx.lineTo(112, 123);
+                ctx.lineTo(50, 123);
+                ctx.lineTo(19, 69);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+
+            //Recibimos el elemento canvas
+            var ctx = cargaContextoCanvas('micanvas');
+            if (ctx) {
+                //Creo un objeto Image con una imagen de la pagina 
+                var img = document.getElementById("im1");
+                ctx.drawImage(img, 10, 10);
+
+                //consigo una imagen desde el array de imágenes
+                ctx.drawImage(document.images[1], 122, 20);
+
+                //consigo una imagen desde un canvas
+                var imgCanvas = document.getElementById("canvas2");
+                ctx.drawImage(imgCanvas, 100, 120);
+
+                //un objeto Image
+                var imagen = new Image();
+                imagen.src = "https://picsum.photos/id/1047/367/267";
+                imagen.onload = function () {
+                    ctx.drawImage(imagen, 330, 195);
+                }
+
+                //a través de un "data: url"
+                var img = new Image();
+                img.src = 'data:image/gif;base64,R0lGODlhCwALAIAAAAAA3pn/ZiH5BAEAAAEALAAAAAALAAsAAAIUhA+hkcuO4lmNVindo7qyrIXiGBYAOw==';
+                ctx.drawImage(img, 300, 200);
+            }
+
+            document.images[1].src = 'data:image/gif;base64,R0lGODlhCwALAIAAAAAA3pn/ZiH5BAEAAAEALAAAAAALAAsAAAIUhA+hkcuO4lmNVindo7qyrIXiGBYAOw==';
+        }
+
+    </script>
+</head>
+
+<body>
+    <h2>Canvas que estoy creando con una serie de imágenes</h2>
+    <canvas id="micanvas" width="500" height="400">
+        Tu navegador no soporta canvas.
+    </canvas>
+    <p>
+    <div style="display: none;">
+        <h2>Cosas que pongo aquí para acceder desde Javascript</h2>
+        <img src="a1.jpg" id="im1">
+        <img src="a2.jpg">
+        <p>
+            <canvas id="canvas2" width="150" height="150">
+                Recicla tu navegador!!
+            </canvas>
+    </div>
+</body>
+
+</html>
