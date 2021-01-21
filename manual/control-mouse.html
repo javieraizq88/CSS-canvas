@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas annimacion </title>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+
+        context.fillCircle = function (x, y, radius, fillColor) {
+            this.fillStyle = fillColor;
+            this.beginPath();
+            this.moveTo(x, y);
+            this.arc(x, y, radius, 0, Math.PI * 2, false);
+            this.fill();
+        };
+
+        context.clearTo = function (fillColor) {
+            context.fillStyle = fillColor;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        };
+
+        context.clearTo("#ddd");
+        canvas.onmousemove = function (e) {
+            if (!canvas.isDrawing) return;
+            var x = e.pageX - this.offsetLeft;
+            var y = e.pageY - this.offsetTop;
+
+            var div = document.getElementById("coords");
+            div.innerHTML = "x: " + x + " y: " + y;
+            var radius = 10;
+            var fillColor = '#ff0000';
+            context.fillCircle(x, y, radius, fillColor);
+        };
+        canvas.onmousedown = function (e) {
+            canvas.isDrawing = true;
+        };
+        canvas.onmouseup = function (e) {
+            canvas.isDrawing = false;
+        };
+
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas" height="10000" width="1000">
+        <div id="coords"></div>
+    </canvas>
+</body>
+
+</html>
